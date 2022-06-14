@@ -15,8 +15,11 @@ using namespace std;
 
 /*takeaways
   - DP
+    - time complexity O(n^2)
   - everyone takes turns to be the center and tries to extend the substring
     to the left and right as long as it maintains a palindrome
+    - given i the center can be (i) or (i,i+1) depending on the number of
+      char of the palindrome
   - record the max length along with the corresponding start
     position so we can later return the string
 
@@ -31,7 +34,7 @@ string Solution::longestPalindrome(string s)
     auto len = max(getLen(i, i, s), getLen(i, i + 1, s));
 
     if (len > maxLen)
-      /* don't forget i is the smaller one of the center pair
+      /* don't forget i is the smaller one in the center pair
          - "baab", i=1
          - start = 1 - (4 - 1)/2 = 1 - 1 = 0
          - this why you need to subtract 1 from the maxLen
@@ -46,6 +49,7 @@ int Solution::getLen(int l, int r, const string &s)
 {
   int n = s.size();
   while (l >= 0 && r < n && s[l] == s[r])
+    /* expand the palindrome */
     l--, r++;
   /* l and r will be pointing at a location outside
      the palindrome
