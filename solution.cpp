@@ -47,6 +47,14 @@ string Solution::longestPalindrome(string s)
 
 int Solution::getLen(int l, int r, const string &s)
 {
+  /*
+    - case like "ba"
+    - it's covered by the logic below, but
+      just want to make it clear
+  */
+  if (l + 1 == r && s[l] != s[r])
+    return 0;
+
   int n = s.size();
   while (l >= 0 && r < n && s[l] == s[r])
     /* expand the palindrome */
